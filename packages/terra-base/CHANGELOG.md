@@ -4,7 +4,11 @@ Changelog
 Unreleased
 ----------
 ### Fixed
-* Add missing eslint-disable-next-line no-console
+* Added missing eslint-disable-next-line no-console
+
+### Added
+* Exported injectIntl/intlShape from package
+* Added fill/mountSelector props to Base
 
 3.2.0 - (March 6, 2018)
 ------------------

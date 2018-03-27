@@ -31,3 +31,16 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
+:local {
+  .base-fill {
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mount-fill {
+    height: 100%;
+  }
+}
