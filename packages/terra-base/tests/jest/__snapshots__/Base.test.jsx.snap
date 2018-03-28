@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders appropriate styles when fill is provided without translations 1`] = `
+<div
+  className="base-fill"
+>
+  String
+</div>
+`;
+
 exports[`should support rendering a string without translation 1`] = `
 <div>
   String

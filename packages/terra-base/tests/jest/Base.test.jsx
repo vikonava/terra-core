@@ -21,3 +21,8 @@ it('throws error for missing required locale', () => {
     expect(e.message).toContain('Missing locale prop');
   }
 });
+
+it('renders appropriate styles when fill is provided without translations', () => {
+  const base = shallow(<Base fill>String</Base>);
+  expect(base).toMatchSnapshot();
+});

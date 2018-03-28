@@ -121,11 +121,14 @@ class Base extends React.Component {
       ...customProps
     } = this.props;
 
-    const baseClassNames = cx([{
-      'base-fill': fill,
-    },
-      customProps.className,
-    ]);
+    let baseClassNames;
+    if (fill || customProps.className) {
+      baseClassNames = cx([{
+        'base-fill': fill,
+      },
+        customProps.className,
+      ]);
+    }
 
     const messages = Object.assign({}, this.state.messages, customMessages);
 

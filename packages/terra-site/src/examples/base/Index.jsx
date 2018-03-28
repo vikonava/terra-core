@@ -15,7 +15,7 @@ import Base from 'terra-base';
 const locale = document.getElementsByTagName('html')[0].getAttribute('lang');
 
 const BaseExamples = () => (
-  <Base locale={locale}>
+  <Base locale={locale} fill mountSelector="#root">
     <div id="version">Version: {version}</div>
     <Markdown id="readme" src={ReadMe} />
     <PropsTable id="props" src={BaseSrc} />
