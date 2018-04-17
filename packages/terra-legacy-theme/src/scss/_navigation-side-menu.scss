@@ -1,22 +1,17 @@
 @import '~terra-mixins';
 
 @include themeStyles {
+  --terra-navigation-side-menu-list-padding-top: 0;
   --terra-application-menu-background-color: #434a4d;
   --terra-navigation-side-menu-list-background-color: #434a4d;
-  // --terra-navigation-side-menu-item-border-bottom: 1px solid #000;
+  --terra-navigation-side-menu-item-border-bottom: 1px solid #000;
   // --terra-navigation-side-menu-item-border-left: none;
   // --terra-navigation-side-menu-item-border-right: none;
   // --terra-navigation-side-menu-item-border-top: none;
   --terra-navigation-side-menu-item-color: #dedfe0;
-  // --terra-navigation-side-menu-item-size: 1.071rem;
-  // --terra-navigation-side-menu-item-line-height: 1.42857;
-  // --terra-navigation-side-menu-item-padding-bottom: 0.8225rem;
-  // --terra-navigation-side-menu-item-padding-left: 1.2143rem;
-  // --terra-navigation-side-menu-item-padding-right: 0.7143rem;
-  // --terra-navigation-side-menu-item-padding-top: 0.8225rem;
   --terra-navigation-side-menu-item-hover-background-color: #434a4d;
   --terra-navigation-side-menu-item-selected-border-left: 0.5rem solid #78c346;
-  // --terra-navigation-side-menu-item-selected-font-weight: 600;
+  --terra-navigation-side-menu-item-selected-font-weight: 400;
   // --terra-navigation-side-menu-item-selected-padding-left: 0.7143rem;
   --terra-navigation-side-menu-item-selected-background-color: #1c1f21;
   // --terra-navigation-side-menu-item-box-shadow: 0 0 1px 3px rgba(76, 178, 233, 0.5), 0 0 7px 4px rgba(76, 178, 233, 0.35);
