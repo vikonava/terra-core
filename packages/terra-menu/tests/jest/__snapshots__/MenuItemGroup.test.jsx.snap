@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should mount with a selected child 1`] = `
+<MenuItemGroup>
+  <SingleSelectList
+    hasChevrons={false}
+    isDivided={false}
+    role="group"
+  >
+    <SelectableList
+      disableUnselectedItems={false}
+      hasChevrons={false}
+      isDivided={false}
+      onChange={[Function]}
+      role="group"
+      selectedIndexes={
+        Array [
+          0,
+        ]
+      }
+    >
+      <List
+        isDivided={false}
+        role="group"
+      >
+        <ul
+          className="list"
+          role="group"
+        >
+          <MenuItem
+            aria-selected={true}
+            isActive={false}
+            isDisabled={false}
+            isSelectable={true}
+            isSelected={true}
+            key=".0"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="option"
+            subMenuItems={Array []}
+            tabIndex="0"
+            text=""
+          >
+            <li
+              aria-checked={true}
+              aria-disabled={false}
+              aria-selected={true}
+              className="item selected"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="menuitemradio"
+              tabIndex="0"
+            >
+              <div
+                className="title"
+              />
+            </li>
+          </MenuItem>
+        </ul>
+      </List>
+    </SelectableList>
+  </SingleSelectList>
+</MenuItemGroup>
+`;
+
+exports[`should mount with children 1`] = `
+<MenuItemGroup>
+  <SingleSelectList
+    hasChevrons={false}
+    isDivided={false}
+    role="group"
+  >
+    <SelectableList
+      disableUnselectedItems={false}
+      hasChevrons={false}
+      isDivided={false}
+      onChange={[Function]}
+      role="group"
+      selectedIndexes={
+        Array [
+          -1,
+        ]
+      }
+    >
+      <List
+        isDivided={false}
+        role="group"
+      >
+        <ul
+          className="list"
+          role="group"
+        >
+          <MenuItem
+            aria-selected={false}
+            isActive={false}
+            isDisabled={false}
+            isSelectable={true}
+            isSelected={false}
+            key=".0"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="option"
+            subMenuItems={Array []}
+            tabIndex="0"
+            text=""
+          >
+            <li
+              aria-checked={false}
+              aria-disabled={false}
+              aria-selected={false}
+              className="item"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="menuitemradio"
+              tabIndex="0"
+            >
+              <div
+                className="title"
+              />
+            </li>
+          </MenuItem>
+        </ul>
+      </List>
+    </SelectableList>
+  </SingleSelectList>
+</MenuItemGroup>
+`;
