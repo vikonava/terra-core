@@ -250,13 +250,15 @@ class SelectRaw extends React.Component {
           return (
             <ul className={cx('display')}>
               {displayValue}
-              <input
-                className={cx('search')}
-                onChange={this.handleSearch}
-                value={this.state.searchValue}
-                ref={(input) => { this.input = input; }}
-                tabIndex="-1"
-              />
+              {this.state.isOpen &&
+                <input
+                  className={cx('search')}
+                  onChange={this.handleSearch}
+                  value={this.state.searchValue}
+                  ref={(input) => { this.input = input; }}
+                  tabIndex="-1"
+                />
+            }
             </ul>
           );
         case Variants.COMBOBOX:

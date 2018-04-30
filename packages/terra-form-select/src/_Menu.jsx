@@ -95,15 +95,19 @@ class Menu extends React.Component {
   }
 
   componentDidUpdate() {
-    // const { bottom, top } = this.menu.parentNode.getBoundingClientRect();
-    // const selectedItem = this.menu.querySelector('[data-select-active]');
-    // const { bottom: targetBottom, top: targetTop } = selectedItem.getBoundingClientRect();
-    //
-    // if (targetTop < top) {
-    //   selectedItem.scrollIntoView();
-    // } else if (targetBottom > bottom) {
-    //   selectedItem.scrollIntoView(false);
-    // }
+    if (!this.state.active) {
+      return;
+    }
+
+    const activeOption = this.menu.querySelector('[data-select-active]');
+    const dropdownRect = this.menu.parentNode.getBoundingClientRect();
+    const optionRect = activeOption.getBoundingClientRect();
+
+    if (optionRect.top < dropdownRect.top) {
+      activeOption.scrollIntoView();
+    } else if (optionRect.bottom > dropdownRect.bottom) {
+      activeOption.scrollIntoView(false);
+    }
   }
 
   componentWillUnmount() {
@@ -118,17 +122,13 @@ class Menu extends React.Component {
   clone(object) {
     return React.Children.map(object, (option) => {
       if (option.type.isOption) {
-        const extras = {};
-        if (option.props.value === this.state.active) {
-          extras['data-select-active'] = true;
-        }
         return React.cloneElement(option, {
           isActive: option.props.value === this.state.active,
           isCheckable: Util.isMultiple(this.props.variant),
           isSelected: Util.isSelected(this.props.value, option.props.value),
           onMouseDown: event => this.handleOptionClick(event, option),
           onMouseEnter: event => this.handleMouseEnter(event, option),
-          ...extras,
+          ...(option.props.value === this.state.active) && { 'data-select-active': true },
         });
       } else if (option.type.isOptGroup) {
         return React.cloneElement(option, {}, this.clone(option.props.children));
