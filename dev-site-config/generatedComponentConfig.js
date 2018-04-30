@@ -237,18 +237,6 @@ import HiddenRadio from '../packages/terra-form-radio/tests/nightwatch/HiddenRad
 import LongTextRadio from '../packages/terra-form-radio/tests/nightwatch/LongTextRadio';
 import MultipleRadios from '../packages/terra-form-radio/tests/nightwatch/MultipleRadios';
 import PopulatedRadio from '../packages/terra-form-radio/tests/nightwatch/PopulatedRadio';
-import DefaultSelectOption from '../packages/terra-form-select/tests/nightwatch/select-option/DefaultSelectOption';
-import DisabledSelectOption from '../packages/terra-form-select/tests/nightwatch/select-option/DisabledSelectOption';
-import SelectOptionLongText from '../packages/terra-form-select/tests/nightwatch/select-option/SelectOptionLongText';
-import SelectOptionWithChildren from '../packages/terra-form-select/tests/nightwatch/select-option/SelectOptionWithChildren';
-import SelectedSelectOption from '../packages/terra-form-select/tests/nightwatch/select-option/SelectedSelectOption';
-import BlankSelect from '../packages/terra-form-select/tests/nightwatch/select/BlankSelect';
-import ControlledSelect from '../packages/terra-form-select/tests/nightwatch/select/ControlledSelect';
-import DefaultSelect from '../packages/terra-form-select/tests/nightwatch/select/DefaultSelect';
-import DisabledSelect from '../packages/terra-form-select/tests/nightwatch/select/DisabledSelect';
-import HiddenPlaceholderSelect from '../packages/terra-form-select/tests/nightwatch/select/HiddenPlaceholderSelect';
-import InvalidSelect from '../packages/terra-form-select/tests/nightwatch/select/InvalidSelect';
-import SelectLongText from '../packages/terra-form-select/tests/nightwatch/select/SelectLongText';
 import AutoResizableTextarea from '../packages/terra-form-textarea/tests/nightwatch/AutoResizableTextarea';
 import AutoResizableTextareaMobileDocumentTouch from '../packages/terra-form-textarea/tests/nightwatch/AutoResizableTextareaMobileDocumentTouch';
 import AutoResizableTextareaMobileMaxTouchPoints from '../packages/terra-form-textarea/tests/nightwatch/AutoResizableTextareaMobileMaxTouchPoints';
@@ -277,7 +265,7 @@ import DefaultSelectField from '../packages/terra-form/tests/nightwatch/select-f
 import PopulatedSelectField from '../packages/terra-form/tests/nightwatch/select-field/PopulatedSelectField';
 import PopulatedSelectFieldControlled from '../packages/terra-form/tests/nightwatch/select-field/PopulatedSelectFieldControlled';
 import ChoicesPropSelect from '../packages/terra-form/tests/nightwatch/select/ChoicesPropSelect';
-import DefaultSelect1 from '../packages/terra-form/tests/nightwatch/select/DefaultSelect';
+import DefaultSelect from '../packages/terra-form/tests/nightwatch/select/DefaultSelect';
 import PopulatedSelect from '../packages/terra-form/tests/nightwatch/select/PopulatedSelect';
 import PopulatedSelectControlled from '../packages/terra-form/tests/nightwatch/select/PopulatedSelectControlled';
 import DefaultTextField from '../packages/terra-form/tests/nightwatch/text-field/DefaultTextField';
@@ -1510,84 +1498,6 @@ const componentConfig = {
       },
     ],
   },
-  'terra-form-select': {
-    name: 'Form Select',
-    path: '/form-select',
-    tests: [
-      {
-        name: 'Select Option',
-        path: '/select-option',
-        tests: [
-          {
-            name: 'Default Select Option',
-            path: '/default-select-option',
-            component: DefaultSelectOption,
-          },
-          {
-            name: 'Disabled Select Option',
-            path: '/disabled-select-option',
-            component: DisabledSelectOption,
-          },
-          {
-            name: 'Select Option Long Text',
-            path: '/select-option-long-text',
-            component: SelectOptionLongText,
-          },
-          {
-            name: 'Select Option With Children',
-            path: '/select-option-with-children',
-            component: SelectOptionWithChildren,
-          },
-          {
-            name: 'Selected Select Option',
-            path: '/selected-select-option',
-            component: SelectedSelectOption,
-          },
-        ],
-      },
-      {
-        name: 'Select',
-        path: '/select',
-        tests: [
-          {
-            name: 'Blank Select',
-            path: '/blank-select',
-            component: BlankSelect,
-          },
-          {
-            name: 'Controlled Select',
-            path: '/controlled-select',
-            component: ControlledSelect,
-          },
-          {
-            name: 'Default Select',
-            path: '/default-select',
-            component: DefaultSelect,
-          },
-          {
-            name: 'Disabled Select',
-            path: '/disabled-select',
-            component: DisabledSelect,
-          },
-          {
-            name: 'Hidden Placeholder Select',
-            path: '/hidden-placeholder-select',
-            component: HiddenPlaceholderSelect,
-          },
-          {
-            name: 'Invalid Select',
-            path: '/invalid-select',
-            component: InvalidSelect,
-          },
-          {
-            name: 'Select Long Text',
-            path: '/select-long-text',
-            component: SelectLongText,
-          },
-        ],
-      },
-    ],
-  },
   'terra-form-textarea': {
     name: 'Form Textarea',
     path: '/form-textarea',
@@ -1781,7 +1691,7 @@ const componentConfig = {
           {
             name: 'Default Select',
             path: '/default-select',
-            component: DefaultSelect1,
+            component: DefaultSelect,
           },
           {
             name: 'Populated Select',
