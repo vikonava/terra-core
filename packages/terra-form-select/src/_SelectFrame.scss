@@ -11,10 +11,10 @@
     border-radius: var(--terra-select-border-radius, 3px);
     border-style: solid;
     border-width: 1px;
-    color: #1c1f21;
+    color: var(--terra-select-text-color, #1c1f21);
     cursor: pointer;
     display: flex;
-    font-size: var(--terra-select-font-size, 1rem);
+    font-size: var(--terra-select-font-size, 1.143rem);
     padding: var(--terra-select-padding, 0);
     transition-duration: var(--terra-select-focus-transition-duration, 0s);
     transition-property: background-size;
@@ -23,7 +23,7 @@
 
     &:focus {
       background-size: var(--terra-select-focus-animation-size, 0 0);
-      border-color: var(--terra-select-input-focus-border-color, #4cb2e9);
+      border-color: var(--terra-select-focus-border-color, #4cb2e9);
       outline: none;
 
       [dir=rtl] & {
@@ -34,16 +34,16 @@
         box-shadow: var(--terra-select-focus-box-shadow-ltr, 0 0 0 2px rgba(76, 178, 233, 0.5));
       }
     }
-
-    &.open.default {
-      border: 1px solid #4cb2e9;
-      box-shadow: none;
-    }
   }
 
-  .open.multiple,
+  .open.default {
+    border: 1px solid #4cb2e9;
+    box-shadow: none;
+  }
+
   .open.tag,
-  .open.combobox {
+  .open.combobox,
+  .open.multiple {
     > .display {
       border: 1px solid #4cb2e9;
       box-shadow: none;
@@ -84,6 +84,14 @@
     }
   }
 
+  .is-disabled .select-arrow {
+    color: var(--terra-select-disabled-arrow-color, #b2b5b6);
+  }
+
+  .is-disabled .display {
+    color: var(--terra-select-disabled-font-color, #b2b5b6);
+  }
+
   .invalid {
     background-image: var(--terra-select-invalid-focus-animation-background, none);
     border-color: var(--terra-select-invalid-border-color, #dedfe0);
@@ -111,10 +119,6 @@
     color: var(--terra-select-invalid-arrow-color, auto);
   }
 
-  .is-disabled .select-arrow {
-    color: var(--terra-select-disabled-arrow-color, #b2b5b6);
-  }
-
   .select-arrow {
     background: var(--terra-select-arrow, inline-svg('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="is-bidi"><path d="M48 12L24 36 0 12h48z"/></svg>'));
     background-position: center;
@@ -140,7 +144,6 @@
   }
 
   .display {
-    color: var(--terra-select-input-text-color, #2d3539);
     display: flex;
     flex-flow: wrap;
     flex-grow: 1;
@@ -151,15 +154,11 @@
   }
 
   .default > .display {
-    line-height: 2;
+    line-height: 1.75;
     padding: 0 0 0 0.429rem;;
   }
 
-  .is-disabled .display {
-    color: var(--terra-select-disabled-font-color, #b2b5b6);
-  }
-
-  .input {
+  .search {
     border: 0;
     flex-grow: 1;
     font-size: var(--terra-select-font-size, 1.143rem);

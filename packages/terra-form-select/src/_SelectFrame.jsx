@@ -251,7 +251,7 @@ class SelectRaw extends React.Component {
             <ul className={cx('display')}>
               {displayValue}
               <input
-                className={cx('input')}
+                className={cx('search')}
                 onChange={this.handleSearch}
                 value={this.state.searchValue}
                 ref={(input) => { this.input = input; }}
@@ -263,7 +263,7 @@ class SelectRaw extends React.Component {
           return (
             <div className={cx('display')}>
               <input
-                className={cx('input')}
+                className={cx('search')}
                 onChange={this.handleSearch}
                 value={this.state.searchChanged ? this.state.searchValue : selectedValue}
                 ref={(input) => { this.input = input; }}
