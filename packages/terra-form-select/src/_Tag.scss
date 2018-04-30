@@ -1,0 +1,48 @@
+@import '~terra-mixins';
+
+:local {
+  .tag {
+    background: #f2f2f2;
+    border-radius: 3px;
+    display: flex;
+    font-size: 14px;
+    margin-right: 5px;
+    margin-top: 0.3572rem;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .deselect {
+    align-items: center;
+    background: #e0e0e0;
+    border-bottom: 2px solid #aeaeaf;
+    cursor: pointer;
+    display: flex;
+    font-size: 1rem;
+    padding: 0.2142857rem 0.5rem;
+
+    &:hover {
+      background: #b9bbbc;
+      border-bottom: 2px solid #8f8f90;
+    }
+  }
+
+  .icon {
+    background: inline-svg('<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M28.2 24L42.9 9.1 40.8 7l-1.7-1.6-.4-.5L24 19.7 9.4 4.9 7.2 7 5.6 8.6l-.5.5L19.8 24 5.1 38.9 7.2 41l1.7 1.6.5.5L24 28.3l14.7 14.8.4-.5 1.7-1.6 2.1-2.1L28.2 24z"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 0.7142857142857143rem;
+    width: 0.7142857142857143rem;
+  }
+
+  .content {
+    align-items: center;
+    border-bottom: 2px solid #dedfe0;
+    color: #1c1f21;
+    display: flex;
+    font-size: 1rem;
+    line-height: 1.143;
+    padding: 0 0.571429rem;
+    white-space: normal;
+  }
+}

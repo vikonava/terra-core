@@ -512,13 +512,6 @@
     "--terra-menu-submenu-foreground-color": "#1c1f21"
   },
   "MenuItem": {
-    "--terra-menu-item-hover-color": "#ebf6fd",
-    "--terra-menu-item-text-color": "#1c1f21",
-    "--terra-menu-item-text-font-size": "13px",
-    "--terra-menu-item-checkmark-icon-color": "#1c1f21",
-    "--terra-menu-item-checkmark-icon-font-size": "12px",
-    "--terra-menu-item-chevron-icon-color": "#9b9fa1",
-    "--terra-menu-item-chevron-icon-font-size": "10px",
     "--terra-navigation-side-menu-item-border-bottom": "none",
     "--terra-navigation-side-menu-item-border-left": "none",
     "--terra-navigation-side-menu-item-border-right": "none",
@@ -536,7 +529,14 @@
     "--terra-navigation-side-menu-item-selected-padding-left": "0.7143rem",
     "--terra-navigation-side-menu-item-selected-background-color": "#f4f4f4",
     "--terra-navigation-side-menu-item-box-shadow": "0 0 1px 3px rgba(76, 178, 233, 0.5), 0 0 7px 4px rgba(76, 178, 233, 0.35)",
-    "--terra-navigation-side-menu-item-chevron-color": "#787879"
+    "--terra-navigation-side-menu-item-chevron-color": "#787879",
+    "--terra-menu-item-hover-color": "#ebf6fd",
+    "--terra-menu-item-text-color": "#1c1f21",
+    "--terra-menu-item-text-font-size": "13px",
+    "--terra-menu-item-checkmark-icon-color": "#1c1f21",
+    "--terra-menu-item-checkmark-icon-font-size": "12px",
+    "--terra-menu-item-chevron-icon-color": "#9b9fa1",
+    "--terra-menu-item-chevron-icon-font-size": "10px"
   },
   "Modal": {
     "--terra-modal-background-color": "#fff",
@@ -545,8 +545,8 @@
     "--terra-modal-fixed-margin": "0 auto"
   },
   "ModalOverlay": {
-    "--terra-abstract-modal-overlay-background-color": "rgba(0, 0, 0, 0.4)",
-    "--terra-modal-overlay-background-color": "rgba(0, 0, 0, 0.4)"
+    "--terra-modal-overlay-background-color": "rgba(0, 0, 0, 0.4)",
+    "--terra-abstract-modal-overlay-background-color": "rgba(0, 0, 0, 0.4)"
   },
   "NavigationSideMenu": {
     "--terra-navigation-side-menu-list-background-color": "transparent",
@@ -741,6 +741,41 @@
     "--terra-select-option-selected-font-color": "#fff",
     "--terra-select-option-selected-font-weight": "normal",
     "--terra-select-option-hover-color": "#ebf6fd"
+  },
+  "SelectRaw": {
+    "--terra-select-background-color": "#fff",
+    "--terra-select-focus-animation-background": "none",
+    "--terra-select-focus-background-start": "0 0",
+    "--terra-select-input-border-color": "#dedfe0",
+    "--terra-select-font-size": "1.143rem",
+    "--terra-select-line-height": "1.125",
+    "--terra-select-input-padding": "0",
+    "--terra-select-focus-transition-duration": "0s",
+    "--terra-select-focus-transition-timing": "ease",
+    "--terra-select-focus-animation-size": "0 0",
+    "--terra-select-input-focus-border-color": "#4cb2e9",
+    "--terra-select-focus-box-shadow-rtl": "0 0 0 2px rgba(76, 178, 233, 0.5)",
+    "--terra-select-focus-box-shadow-ltr": "0 0 0 2px rgba(76, 178, 233, 0.5)",
+    "--terra-select-disabled-background-color": "rgba(111, 116, 119, 0.05)",
+    "--terra-select-disabled-border-color": "#dedfe0",
+    "--terra-select-disabled-color": "rgba(0, 0, 0, 0.25)",
+    "--terra-select-invalid-focus-animation-background": "none",
+    "--terra-select-invalid-border-color": "#dedfe0",
+    "--terra-select-invalid-hover-border-color": "#dedfe0",
+    "--terra-select-invalid-focus-animation-size": "0 0",
+    "--terra-select-invalid-focus-border-color": "#4cb2e9",
+    "--terra-select-invalid-focus-box-shadow-rtl": "0 0 7px 4px rgba(76, 178, 233, 0.35), 0 0 1px 3px rgba(76, 178, 233, 0.5), 0 0 1px 0 #fff",
+    "--terra-select-invalid-focus-box-shadow-ltr": "0 0 7px 4px rgba(76, 178, 233, 0.35), 0 0 1px 3px rgba(76, 178, 233, 0.5), 0 0 1px 0 #fff",
+    "--terra-select-invalid-arrow-color": "auto",
+    "--terra-select-disabled-arrow-color": "#b2b5b6",
+    "--terra-select-arrow-color": "auto",
+    "--terra-select-arrow-height": "0.715rem",
+    "--terra-select-arrow-margin": "0.286rem 0",
+    "--terra-select-arrow-width": "1rem",
+    "--terra-select-default-option-color": "#bcbfc0",
+    "--terra-select-default-option-font-style": "normal",
+    "--terra-select-input-text-color": "#2d3539",
+    "--terra-select-disabled-font-color": "#b2b5b6"
   },
   "Signature": {
     "--terra-signature-background-color": "#fff",
@@ -1035,6 +1070,22 @@
     "--terra-application-user-data-photo-width": "3.571rem",
     "--terra-application-user-data-name-font-size": "1.143rem",
     "--terra-application-user-data-detail-font-size": "0.8571rem"
+  },
+  "_Dropdown": {
+    "--terra-select-menu-background-color": "#fff",
+    "--terra-select-menu-input-border-color": "#dedfe0",
+    "--terra-select-menu-box-shadow-rtl": "0 3px 12px -5px rgba(0, 0, 0, 0.25)",
+    "--terra-select-menu-box-shadow-ltr": "0 3px 12px -5px rgba(0, 0, 0, 0.25)"
+  },
+  "_Option": {
+    "--terra-select-option-font-color": "rgba(0, 0, 0, 0.9)",
+    "--terra-select-option-font-size": "1.143rem",
+    "--terra-select-option-line-height": "1.125",
+    "--terra-select-option-padding": "0.286rem 0.714rem",
+    "--terra-select-option-hover-color": "#ebf6fd",
+    "--terra-select-option-selected-color": "#007cc3",
+    "--terra-select-option-selected-font-color": "#fff",
+    "--terra-select-option-selected-font-weight": "normal"
   },
   "_UtilityButton": {
     "--terra-application-header-utility-background-color": "transparent",
