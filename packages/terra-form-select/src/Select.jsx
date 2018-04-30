@@ -21,57 +21,46 @@ const propTypes = {
    *   3) Name of the select component
    */
   onChange: PropTypes.func,
-
   /**
    * Name of the select field.
    */
   name: PropTypes.string,
-
   /**
-   * Whether the select is required or not.
+   * Indicates the select is required or not.
    */
   required: PropTypes.bool,
-
   /**
-   * The value to start the select on.
+   * The value to start the select on. Use this to create an uncontrolled input.
    */
-  defaultValue: PropTypes.string,
-
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
   /**
    * The value of the select element. Use this to create a controlled input.
    */
-  value: PropTypes.string,
-
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
   /**
    * Select options.
    */
   children: PropTypes.node.isRequired,
-
   /**
    * Indicates if the select is in an invalid state.
    */
   isInvalid: PropTypes.bool,
-
   /**
-   * Indicates if the placeholder is hidden
+   * Indicates if the placeholder is hidden. Test.
    */
   isPlaceholderHidden: PropTypes.bool,
-
   /**
    * Indicates if the select should be disabled.
    */
   disabled: PropTypes.bool,
-
   /**
    * A callback function to let the containing component (e.g. modal) to regain focus.
    */
   releaseFocus: PropTypes.func,
-
   /**
    * A callback function to request focus from the containing component (e.g. modal).
    */
   requestFocus: PropTypes.func,
-
   /**
    * Bounding container for the select menu, will use window if no value provided.
    */

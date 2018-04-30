@@ -5,6 +5,12 @@ import Arrange from 'terra-arrange';
 
 const HeadingSizes = () => (
   <div>
+    <Heading level={1}>Huge</Heading>
+    <Heading level={2}>Huge</Heading>
+    <Heading level={3}>Huge</Heading>
+    <Heading level={4}>Huge</Heading>
+    <Heading level={5}>Huge</Heading>
+    <Heading level={6}>Huge</Heading>
     <Arrange
       align="center"
       fitStart={<Text color="#333" fontSize={20}>h3</Text>}

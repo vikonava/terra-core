@@ -10,6 +10,7 @@ class NumberFieldExamples extends React.Component {
   }
 
   handleChange(event) {
+    console.log(event.target.value);
     this.setState({ input: event.target.value });
   }
 

@@ -1,0 +1,31 @@
+:local {
+  .opt-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+
+    &:not(:first-child) > .label {
+      border-top: 0.1428571429rem solid #dedfe0;
+    }
+  }
+
+  .label {
+    background-color: #f9f9f9;
+    color: #64696c;
+    font-size: 0.9286rem;
+    font-weight: bold;
+    line-height: 1.23;
+    padding: 5px;
+  }
+
+  .options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .is-disabled {
+    pointer-events: none;
+  }
+}

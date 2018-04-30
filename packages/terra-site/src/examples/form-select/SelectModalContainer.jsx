@@ -2,6 +2,61 @@ import React from 'react';
 import Select from 'terra-form-select';
 import Button from 'terra-button';
 import AppDelegate from 'terra-app-delegate';
+// Example Files
+import RawSelect from '../../../../terra-form-select/src/SelectRaw';
+import DropdownMenu from '../../../../terra-form-select/src/_Menu';
+
+class RawExample extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { value: ['1'] };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleDeselect = this.handleDeselect.bind(this);
+  }
+
+  handleChange(value) {
+    this.setState({ value });
+  }
+
+  handleDeselect(value) {
+    this.setState({ value: this.state.value.filter(val => val !== value) });
+  }
+
+  handleSelect(value) {
+    this.setState({ value: [...this.state.value, value] });
+  }
+
+  render() {
+    const options = [];
+
+    for (let index = 0; index < 200; index += 1) {
+      options.push(<RawSelect.Option key={`${index}`} value={`${index}`} display={`${index}`} />);
+    }
+
+    const rawValue = this.state.value.map(value => (
+      { value, display: value }
+    ));
+
+    return (
+      <RawSelect
+        placeholder="Select"
+        value={rawValue}
+        isSearchable
+        onSelect={this.handleSelect}
+        onDeselect={this.handleDeselect}
+        noResultContent="Oh Snap, nothing found here jim"
+        variant="tag"
+        dropdown={props => (
+          <DropdownMenu {...props}>
+            {options}
+          </DropdownMenu>
+        )}
+      />
+    );
+  }
+}
 
 class ModalContainer extends React.Component {
   constructor(props) {
@@ -45,8 +100,6 @@ class ModalContainer extends React.Component {
             defaultValue="snappers"
             required
             onChange={this.handleChange}
-            releaseFocus={props.app.releaseFocus}
-            requestFocus={props.app.requestFocus}
           >
             <Select.Option value="puppies" display="Puppies" key="puppies" />
             <Select.Option value="kittens" display="Kittens" key="kittens" />
@@ -55,6 +108,8 @@ class ModalContainer extends React.Component {
             <Select.Option value="joeys" display="Joeys" key="joeys" />
             <Select.Option value="micros" display="Microprocessors" disabled key="micros" />
           </Select>
+
+          <RawExample />
         </form>
         <br />
         <br />
