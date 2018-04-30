@@ -20,7 +20,6 @@ const propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
-// TODO:
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 const Tag = ({ children, onDeselect, value }) => (
   <li className={cx('tag')}>

@@ -5,11 +5,21 @@
     background: #f2f2f2;
     border-radius: 3px;
     display: flex;
-    font-size: 14px;
-    margin-right: 5px;
+    margin-right: 0.42857rem;
     margin-top: 0.3572rem;
     overflow: hidden;
     user-select: none;
+  }
+
+  .content {
+    align-items: center;
+    border-bottom: 2px solid #dedfe0;
+    color: #1c1f21;
+    display: flex;
+    font-size: 1rem;
+    line-height: 1.143;
+    padding: 0 0.571429rem;
+    white-space: normal;
   }
 
   .deselect {
@@ -33,16 +43,5 @@
     background-size: contain;
     height: 0.7142857142857143rem;
     width: 0.7142857142857143rem;
-  }
-
-  .content {
-    align-items: center;
-    border-bottom: 2px solid #dedfe0;
-    color: #1c1f21;
-    display: flex;
-    font-size: 1rem;
-    line-height: 1.143;
-    padding: 0 0.571429rem;
-    white-space: normal;
   }
 }
