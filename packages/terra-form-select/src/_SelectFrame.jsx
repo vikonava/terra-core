@@ -63,10 +63,6 @@ const propTypes = {
    */
   placeholder: PropTypes.string,
   /**
-   * Whether the select is required.
-   */
-  required: PropTypes.bool,
-  /**
    * The selected value.
    */
   value: PropTypes.oneOfType([
@@ -97,7 +93,6 @@ const defaultProps = {
   onSelect: undefined,
   optionFilter: undefined,
   placeholder: 'Select',
-  required: false,
   value: undefined,
   variant: Variants.DEFAULT,
 };
@@ -219,7 +214,6 @@ class SelectRaw extends React.Component {
       onSelect,
       optionFilter,
       placeholder,
-      required,
       variant,
       value,
       ...customProps
@@ -250,12 +244,13 @@ class SelectRaw extends React.Component {
           return (
             <ul className={cx('display')}>
               {displayValue}
-              {this.state.isOpen &&
+              {(this.state.isOpen || displayValue.length === 0) &&
                 <input
                   className={cx('search')}
                   onChange={this.handleSearch}
                   value={this.state.searchValue}
                   ref={(input) => { this.input = input; }}
+                  placeholder={placeholder}
                   tabIndex="-1"
                 />
             }
@@ -269,6 +264,7 @@ class SelectRaw extends React.Component {
                 onChange={this.handleSearch}
                 value={this.state.searchChanged ? this.state.searchValue : selectedValue}
                 ref={(input) => { this.input = input; }}
+                placeholder={placeholder}
                 tabIndex="-1"
               />
             </div>
@@ -284,7 +280,6 @@ class SelectRaw extends React.Component {
         role="combobox"
         aria-disabled={!!disabled}
         aria-expanded={!!this.state.isOpen}
-        aria-required={!!required}
         className={selectClasses}
         onClick={this.openDropdown}
         onKeyDown={this.handleKeyDown}
