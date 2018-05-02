@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import 'terra-base/lib/baseStyles';
-import SelectUtils from './_SelectUtils';
-import Tag from './_Tag';
+import Dropdown from './_Dropdown';
 import Option from './_Option';
 import OptGroup from './_OptGroup';
-import Dropdown from './_Dropdown';
-import styles from './_SelectFrame.scss';
+import Tag from './_Tag';
+import SelectUtils from './_SelectUtils';
+import styles from './_Frame.scss';
 
 const cx = classNames.bind(styles);
 const Variants = SelectUtils.VARIANTS;
@@ -92,36 +92,74 @@ const defaultProps = {
   onSearch: undefined,
   onSelect: undefined,
   optionFilter: undefined,
-  placeholder: 'Select',
+  placeholder: undefined,
   value: undefined,
   variant: Variants.DEFAULT,
 };
 
 // TODO:
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-class SelectRaw extends React.Component {
+class Frame extends React.Component {
+  /**
+   * Converts the value object into a pure value.
+   * @param {string} variant - The component variant.
+   * @param {Object} value - The object value of the component.
+   * @return {array|string|null} - The pure component value.
+   */
+  static value(variant, value) {
+    if (!value) {
+      return null;
+    } else if (variant === Variants.MULTIPLE || variant === Variants.TAG) {
+      return value.map(option => option.value);
+    }
+    return value.value;
+  }
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      isOpen: false,
-      searchValue: '',
-    };
+    this.state = { isOpen: false, searchValue: '' };
 
-    this.openDropdown = this.openDropdown.bind(this);
+    this.setInput = this.setInput.bind(this);
+    this.getDisplay = this.getDisplay.bind(this);
     this.closeDropdown = this.closeDropdown.bind(this);
+    this.openDropdown = this.openDropdown.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  // TODO
   componentDidUpdate() {
-    if (this.input) {
+    if (this.input && this.state.isOpen && this.input !== document.activeElement) {
       this.input.focus();
     }
+  }
+
+  setInput(input) {
+    this.input = input;
+  }
+
+  getDisplay() {
+    const { searchValue } = this.state;
+    const { onDeselect, placeholder, variant, value } = this.props;
+
+    const inputAttrs = {
+      className: cx('input'),
+      tabIndex: '-1',
+      placeholder,
+      ref: this.setInput,
+      onChange: this.handleSearch,
+    };
+
+    if (variant === Variants.MULTIPLE || variant === Variants.TAG) {
+      const tags = (value || []).map(tag => <Tag value={tag.value} onDeselect={onDeselect} key={tag.value}>{tag.display}</Tag>);
+      return <ul className={cx('tags')}>{tags}<input {...inputAttrs} value={searchValue} /></ul>;
+    } else if (variant === Variants.COMBOBOX) {
+      return <input {...inputAttrs} value={searchValue || Frame.value(variant, value) || searchValue} />;
+    }
+
+    return value ? value.display : <div className={cx('placeholder')}>{placeholder}</div>;
   }
 
   /**
@@ -142,12 +180,6 @@ class SelectRaw extends React.Component {
     this.setState({ isOpen: true });
   }
 
-  handleFocus() {
-    if (this.input) {
-      // this.input.focus();
-    }
-  }
-
   /**
    * Handles keyboard interactions and accessibility.
    * @param {event} event - The onKeyDown event.
@@ -156,11 +188,11 @@ class SelectRaw extends React.Component {
     const { keyCode } = event;
     const { BACKSPACE, SPACE, UP_ARROW, DOWN_ARROW } = KeyCodes;
 
-    if (document.activeElement !== this.input && (keyCode === SPACE || keyCode === UP_ARROW || keyCode === DOWN_ARROW)) {
+    if (keyCode === SPACE || keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
       event.preventDefault();
       this.openDropdown();
     } else if (keyCode === BACKSPACE && !this.state.searchValue && this.props.value.length > 0) {
-      this.props.onDeselect(this.props.value.slice(-1)[0].value);
+      this.props.onDeselect(this.props.value[0].value);
     }
   }
 
@@ -222,57 +254,11 @@ class SelectRaw extends React.Component {
     const selectClasses = cx([
       'select',
       variant,
-      { invalid: isInvalid },
       { 'is-disabled': disabled },
-      { open: this.state.isOpen },
+      { 'is-invalid': isInvalid },
+      { 'is-open': this.state.isOpen },
       customProps.className,
     ]);
-
-    let selectedValue;
-    let displayValue;
-    if (value) {
-      selectedValue = Array.isArray(value) ? value.map(option => option.value) : value.value;
-      displayValue = !Array.isArray(value) ? value.display : value.map(item => (
-        <Tag value={item.value} onDeselect={onDeselect} key={item.value}>{item.display}</Tag>
-      ));
-    }
-
-    const display = () => {
-      switch (variant) {
-        case Variants.MULTIPLE:
-        case Variants.TAG:
-          return (
-            <ul className={cx('display')}>
-              {displayValue}
-              {(this.state.isOpen || displayValue.length === 0) &&
-                <input
-                  className={cx('search')}
-                  onChange={this.handleSearch}
-                  value={this.state.searchValue}
-                  ref={(input) => { this.input = input; }}
-                  placeholder={placeholder}
-                  tabIndex="-1"
-                />
-            }
-            </ul>
-          );
-        case Variants.COMBOBOX:
-          return (
-            <div className={cx('display')}>
-              <input
-                className={cx('search')}
-                onChange={this.handleSearch}
-                value={this.state.searchChanged ? this.state.searchValue : selectedValue}
-                ref={(input) => { this.input = input; }}
-                placeholder={placeholder}
-                tabIndex="-1"
-              />
-            </div>
-          );
-        default:
-          return <div className={cx('display')}>{displayValue}</div>;
-      }
-    };
 
     return (
       <div
@@ -283,20 +269,21 @@ class SelectRaw extends React.Component {
         className={selectClasses}
         onClick={this.openDropdown}
         onKeyDown={this.handleKeyDown}
-        onFocus={this.handleFocus}
         tabIndex={disabled ? '-1' : '0'}
         ref={(ref) => { this.select = ref; }}
       >
-        {display()}
+        <div className={cx('display')}>
+          {this.getDisplay()}
+        </div>
         <div className={cx('toggle')} onClick={this.toggleDropdown}>
-          <span className={cx('select-arrow')} />
+          <span className={cx('arrow-icon')} />
         </div>
         {this.state.isOpen &&
           <Dropdown {...dropdownAttrs} onRequestClose={this.closeDropdown} target={this.select}>
             {dropdown &&
                dropdown({
                  variant,
-                 value: selectedValue,
+                 value: Frame.value(variant, value),
                  noResultContent,
                  optionFilter,
                  onDeselect,
@@ -311,9 +298,56 @@ class SelectRaw extends React.Component {
   }
 }
 
-SelectRaw.Option = Option;
-SelectRaw.OptGroup = OptGroup;
-SelectRaw.propTypes = propTypes;
-SelectRaw.defaultProps = defaultProps;
+Frame.Option = Option;
+Frame.OptGroup = OptGroup;
+Frame.propTypes = propTypes;
+Frame.defaultProps = defaultProps;
 
-export default SelectRaw;
+export default Frame;
+
+
+// let selectedValue;
+// let displayValue;
+// if (value) {
+//   selectedValue = Array.isArray(value) ? value.map(option => option.value) : value.value;
+//   displayValue = !Array.isArray(value) ? value.display : value.map(item => (
+//     <Tag value={item.value} onDeselect={onDeselect} key={item.value}>{item.display}</Tag>
+//   ));
+// }
+
+// const display = () => {
+//   switch (variant) {
+//     case Variants.MULTIPLE:
+//     case Variants.TAG:
+//       return (
+//         <ul className={cx('display')}>
+//           {displayValue}
+//           {(this.state.isOpen || displayValue.length === 0) &&
+//             <input
+//               className={cx('search')}
+//               onChange={this.handleSearch}
+//               value={this.state.searchValue}
+//               ref={(input) => { this.input = input; }}
+//               placeholder={placeholder}
+//               tabIndex="-1"
+//             />
+//         }
+//         </ul>
+//       );
+//     case Variants.COMBOBOX:
+//       return (
+//         <div className={cx('display')}>
+//           <input
+//             className={cx('search')}
+//             onChange={this.handleSearch}
+//             value={this.state.searchChanged ? this.state.searchValue : selectedValue}
+//             ref={(input) => { this.input = input; }}
+//             placeholder={placeholder}
+//             tabIndex="-1"
+//           />
+//         </div>
+//       );
+//     default:
+//       return <div className={cx('display')}>{displayValue}</div>;
+//   }
+// };
