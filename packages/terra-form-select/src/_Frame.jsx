@@ -134,7 +134,7 @@ class Frame extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.input && this.state.isFocused && this.input !== document.activeElement) {
+    if (this.input && this.input !== document.activeElement) {
       this.input.focus();
     }
   }
