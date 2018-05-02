@@ -205,7 +205,7 @@ class Frame extends React.Component {
     if (keyCode === SPACE && target !== this.input) {
       event.preventDefault();
       this.openDropdown();
-    } else if (keyCode === SPACE || keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
+    } else if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
       event.preventDefault();
       this.openDropdown();
     } else if (keyCode === BACKSPACE && !this.state.searchValue && this.props.value.length > 0) {

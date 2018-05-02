@@ -69,9 +69,10 @@
   .input {
     border: 0;
     font-size: var(--terra-select-font-size, 1.143rem);
+    height: 0;
     line-height: 1.375;
     outline: none;
-    padding: 0.21428571428571427rem 0 0;
+    padding: 0;
     width: 0;
 
     &:focus {
@@ -81,6 +82,8 @@
 
   .input:first-child {
     flex-grow: 1;
+    height: auto;
+    padding: 0.21428571428571427rem 0 0;
   }
 
   .input::placeholder,
@@ -114,6 +117,9 @@
 
       .input {
         flex-grow: 1;
+        height: auto;
+        padding: 0.21428571428571427rem 0 0;
+        width: auto;
       }
     }
 
@@ -125,6 +131,9 @@
 
       .input {
         flex-grow: 1;
+        height: auto;
+        padding: 0.21428571428571427rem 0 0;
+        width: auto;
       }
     }
   }
