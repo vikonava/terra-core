@@ -8,12 +8,12 @@ class Default extends React.Component {
   constructor() {
     super();
 
-    this.state = { value: 'Blue' };
+    this.state = {};
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleSelect(value) {
-    this.setState({ value });
+    this.setState({ value: { value, display: value } });
   }
 
   render() {
@@ -25,6 +25,7 @@ class Default extends React.Component {
 
     return (
       <RawSelect
+        value={this.state.value}
         onSelect={this.handleSelect}
         dropdownAttrs={{ style: { maxHeight: 300 } }}
         placeholder="Placeholder"

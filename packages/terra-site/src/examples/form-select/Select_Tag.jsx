@@ -46,6 +46,7 @@ class Default extends React.Component {
         noResultContent="Oh Snap, nothing found here jim"
         variant="tag"
         dropdownAttrs={{ style: { maxHeight: 300 } }}
+        placeholder="Placeholder"
         dropdown={props => (
           <DropdownMenu {...props}>
             {options}

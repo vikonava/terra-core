@@ -13,7 +13,6 @@ class Default extends React.Component {
   }
 
   handleSelect(value) {
-    console.log(value);
     this.setState({ value });
   }
 
@@ -30,6 +29,7 @@ class Default extends React.Component {
         onSelect={this.handleSelect}
         variant="combobox"
         dropdownAttrs={{ style: { maxHeight: 300 } }}
+        placeholder="Placeholder"
         dropdown={props => (
           <DropdownMenu {...props}>
             {options}
