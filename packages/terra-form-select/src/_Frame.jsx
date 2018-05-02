@@ -134,7 +134,7 @@ class Frame extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.input && this.state.isOpen && this.input !== document.activeElement) {
+    if (this.input && this.state.isFocused && this.input !== document.activeElement) {
       this.input.focus();
     }
   }
@@ -162,7 +162,7 @@ class Frame extends React.Component {
         <Tag value={tag.value} onDeselect={onDeselect} key={tag.value}>{tag.display}</Tag>
       ));
 
-      return <ul className={cx('tags')}>{tags}<input {...inputAttrs} value={searchValue} /></ul>;
+      return <ul className={cx('tags')} id="test">{tags}<input {...inputAttrs} value={searchValue} /></ul>;
     } else if (variant === Variants.COMBOBOX) {
       return <input {...inputAttrs} value={searchValue} />;
     }
@@ -190,7 +190,7 @@ class Frame extends React.Component {
 
   handleFocus() {
     if (this.input) {
-      this.input.focus();
+      this.setState({ isFocused: true });
     }
   }
 

@@ -68,12 +68,14 @@
 
   .input {
     border: 0;
+    display: none;
+    flex-grow: 1;
     font-size: var(--terra-select-font-size, 1.143rem);
-    height: 0;
     line-height: 1.375;
+    margin: 0;
     outline: none;
-    padding: 0;
-    width: 0;
+    padding: 0.21428571428571427rem 0 0;
+    width: auto;
 
     &:focus {
       outline: none;
@@ -81,9 +83,7 @@
   }
 
   .input:first-child {
-    flex-grow: 1;
-    height: auto;
-    padding: 0.21428571428571427rem 0 0;
+    display: block;
   }
 
   .input::placeholder,
@@ -116,10 +116,7 @@
       }
 
       .input {
-        flex-grow: 1;
-        height: auto;
-        padding: 0.21428571428571427rem 0 0;
-        width: auto;
+        display: block;
       }
     }
 
@@ -130,10 +127,7 @@
       }
 
       .input {
-        flex-grow: 1;
-        height: auto;
-        padding: 0.21428571428571427rem 0 0;
-        width: auto;
+        display: block;
       }
     }
   }
