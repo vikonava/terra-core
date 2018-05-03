@@ -68,7 +68,6 @@
 
   .input {
     border: 0;
-    display: none;
     flex-grow: 1;
     font-size: var(--terra-select-font-size, 1.143rem);
     line-height: 1.375;
@@ -77,13 +76,18 @@
     padding: 0.21428571428571427rem 0 0;
     width: auto;
 
-    &:focus {
-      outline: none;
+    &:not(:first-child) {
+      flex-grow: 0;
+      opacity: 0;
+      width: 1px;
     }
-  }
 
-  .input:first-child {
-    display: block;
+    &:focus {
+      flex-grow: 1;
+      opacity: 1;
+      outline: none;
+      width: auto;
+    }
   }
 
   .input::placeholder,
@@ -98,6 +102,7 @@
       border: var(--terra-select-split-border, 1px solid #dedfe0);
       border-bottom-left-radius: var(--terra-select-border-radius, 3px);
       border-top-left-radius: var(--terra-select-border-radius, 3px);
+      cursor: text;
       padding-bottom: 0.21428571428571427rem;
     }
 
@@ -116,7 +121,10 @@
       }
 
       .input {
-        display: block;
+        flex-grow: 1;
+        opacity: 1;
+        outline: none;
+        width: auto;
       }
     }
 
@@ -124,10 +132,6 @@
       > .display {
         border-color: var(--terra-select-focus-border-color, #4cb2e9);
         box-shadow: none;
-      }
-
-      .input {
-        display: block;
       }
     }
   }

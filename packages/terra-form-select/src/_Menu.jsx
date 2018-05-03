@@ -155,7 +155,7 @@ class Menu extends React.Component {
     } else if (keyCode === KeyCodes.DOWN_ARROW) {
       event.preventDefault();
       this.setState({ active: Util.findNext(children, active) });
-    } else if (keyCode === KeyCodes.TAB || keyCode === KeyCodes.ESCAPE) {
+    } else if (keyCode === KeyCodes.ESCAPE) {
       onRequestClose(event);
     }
   }

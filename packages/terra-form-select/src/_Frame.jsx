@@ -118,29 +118,25 @@ class Frame extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { isOpen: false, searchValue: '' };
+    this.state = { isOpen: false, searchValue: '', isFocused: false };
 
-    this.setInput = this.setInput.bind(this);
     this.getDisplay = this.getDisplay.bind(this);
     this.closeDropdown = this.closeDropdown.bind(this);
     this.openDropdown = this.openDropdown.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
+    this.handleInputFocus = this.handleInputFocus.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.handleInputFocus = this.handleInputFocus.bind(this);
-    this.handleInputBlur = this.handleInputBlur.bind(this);
   }
 
   componentDidUpdate() {
-    if (this.input && this.input !== document.activeElement) {
+    // console.log('Update: ', this.state.isFocused && document.activeElement !== this.input);
+    if (this.state.isFocused && document.activeElement !== this.input) {
       this.input.focus();
     }
-  }
-
-  setInput(input) {
-    this.input = input;
   }
 
   getDisplay() {
@@ -151,10 +147,10 @@ class Frame extends React.Component {
       className: cx('input'),
       onBlur: this.handleInputBlur,
       onChange: this.handleSearch,
+      onMouseDown: (event) => { event.stopPropagation(); this.openDropdown(); },
       onFocus: this.handleInputFocus,
       placeholder,
-      ref: this.setInput,
-      tabIndex: '-1',
+      ref: (input) => { this.input = input; },
     };
 
     if (variant === Variants.MULTIPLE || variant === Variants.TAG) {
@@ -164,7 +160,7 @@ class Frame extends React.Component {
 
       return <ul className={cx('tags')} id="test">{tags}<input {...inputAttrs} value={searchValue} /></ul>;
     } else if (variant === Variants.COMBOBOX) {
-      return <input {...inputAttrs} value={searchValue} />;
+      return <input {...inputAttrs} value={searchValue || value.display} />;
     }
 
     return value ? value.display : <div className={cx('placeholder')}>{placeholder}</div>;
@@ -173,23 +169,44 @@ class Frame extends React.Component {
   /**
    * Closes the dropdown.
    */
-  closeDropdown() {
-    this.setState({ isOpen: false });
+  closeDropdown(focused) {
+    console.log('Close');
+    this.setState({ isOpen: false, isFocused: this.props.variant !== Variants.DEFAULT && !!focused });
   }
 
   /**
    * Opens the dropdown.
    */
-  openDropdown() {
+  openDropdown(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
     if (this.state.isOpen) {
       return;
     }
 
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: true, isFocused: this.props.variant !== Variants.DEFAULT });
   }
 
-  handleFocus() {
-    if (this.input) {
+  handleBlur() {
+    if (this.state.isOpen) {
+      this.closeDropdown();
+    }
+  }
+
+  handleInputBlur() {
+    console.log('Blur');
+
+    if (this.state.isFocused) {
+      this.setState({ isFocused: false, isOpen: false, searchValue: '' });
+    }
+  }
+
+  handleInputFocus() {
+    console.log('Focus');
+
+    if (this.input && !this.state.isFocused) {
       this.setState({ isFocused: true });
     }
   }
@@ -239,26 +256,21 @@ class Frame extends React.Component {
     }
   }
 
-  handleInputBlur() {
-    this.setState({ isFocused: false, searchValue: '' });
-  }
-
-  handleInputFocus() {
-    this.setState({ isFocused: true });
-  }
-
   /**
    * Toggles the dropdown open or closed.
    */
-  toggleDropdown() {
+  toggleDropdown(event) {
+    // event.preventDefault();
+
     if (this.state.isOpen) {
-      this.closeDropdown();
+      this.closeDropdown(true);
     } else {
       this.openDropdown();
     }
   }
 
   render() {
+    console.log('Render');
     const {
       disabled,
       dropdown,
@@ -293,16 +305,16 @@ class Frame extends React.Component {
         aria-disabled={!!disabled}
         aria-expanded={!!this.state.isOpen}
         className={selectClasses}
-        onClick={this.openDropdown}
-        onFocus={this.handleFocus}
+        onBlur={variant === Variants.DEFAULT ? this.handleBlur : undefined}
         onKeyDown={this.handleKeyDown}
-        tabIndex={(this.state.isFocused || disabled) ? '-1' : '0'}
+        onMouseDown={(event) => { if (variant !== Variants.DEFAULT) { event.preventDefault(); } }}
+        tabIndex={(variant !== Variants.DEFAULT || disabled) ? '-1' : '0'}
         ref={(ref) => { this.select = ref; }}
       >
-        <div className={cx('display')}>
+        <div className={cx('display')} onMouseDown={this.openDropdown}>
           {this.getDisplay()}
         </div>
-        <div className={cx('toggle')} onClick={this.toggleDropdown}>
+        <div className={cx('toggle')} onMouseDown={this.toggleDropdown}>
           <span className={cx('arrow-icon')} />
         </div>
         {this.state.isOpen &&
