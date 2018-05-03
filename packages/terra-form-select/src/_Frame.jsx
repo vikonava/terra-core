@@ -125,16 +125,16 @@ class Frame extends React.Component {
     this.openDropdown = this.openDropdown.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.handleInputBlur = this.handleInputBlur.bind(this);
-    this.handleInputFocus = this.handleInputFocus.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidUpdate() {
     // console.log('Update: ', this.state.isFocused && document.activeElement !== this.input);
-    if (this.state.isFocused && document.activeElement !== this.input) {
+    if (this.input && this.state.isFocused && document.activeElement !== this.input) {
       this.input.focus();
     }
   }
@@ -145,10 +145,10 @@ class Frame extends React.Component {
 
     const inputAttrs = {
       className: cx('input'),
-      onBlur: this.handleInputBlur,
+      // onBlur: this.handleInputBlur,
       onChange: this.handleSearch,
       onMouseDown: (event) => { event.stopPropagation(); this.openDropdown(); },
-      onFocus: this.handleInputFocus,
+      // onFocus: this.handleInputFocus,
       placeholder,
       ref: (input) => { this.input = input; },
     };
@@ -169,16 +169,16 @@ class Frame extends React.Component {
   /**
    * Closes the dropdown.
    */
-  closeDropdown(focused) {
+  closeDropdown() {
     console.log('Close');
-    this.setState({ isOpen: false, isFocused: this.props.variant !== Variants.DEFAULT && !!focused });
+    this.setState({ isOpen: false });
   }
 
   /**
    * Opens the dropdown.
    */
   openDropdown(event) {
-    if (event) {
+    if (event && this.props.variant !== Variants.DEFAULT) {
       event.preventDefault();
     }
 
@@ -186,31 +186,25 @@ class Frame extends React.Component {
       return;
     }
 
-    this.setState({ isOpen: true, isFocused: this.props.variant !== Variants.DEFAULT });
+    this.setState({ isOpen: true, isFocused: true });
   }
+
 
   handleBlur() {
-    if (this.state.isOpen) {
-      this.closeDropdown();
-    }
-  }
-
-  handleInputBlur() {
     console.log('Blur');
 
     if (this.state.isFocused) {
       this.setState({ isFocused: false, isOpen: false, searchValue: '', searchChanged: false });
 
-      if (this.state.searchValue && (this.props.variant === Variants.COMBOBOX || this.props.variant === Variants.TAG) && this.props.onSelect) {
+      if ((this.state.searchChanged || this.state.searchValue) && (this.props.variant === Variants.COMBOBOX || this.props.variant === Variants.TAG) && this.props.onSelect) {
         this.props.onSelect(this.state.searchValue);
       }
     }
   }
 
-  handleInputFocus() {
+  handleFocus() {
     console.log('Focus');
-
-    if (this.input && !this.state.isFocused) {
+    if (!this.state.isFocused) {
       this.setState({ isFocused: true });
     }
   }
@@ -233,6 +227,12 @@ class Frame extends React.Component {
       this.props.onDeselect(this.props.value[0].value);
     } else if (keyCode === KeyCodes.ESCAPE) {
       this.closeDropdown();
+    }
+  }
+
+  handleMouseDown(event) {
+    if (this.props.variant !== Variants.DEFAULT) {
+      event.preventDefault();
     }
   }
 
@@ -269,7 +269,7 @@ class Frame extends React.Component {
     // event.preventDefault();
 
     if (this.state.isOpen) {
-      this.closeDropdown(true);
+      this.closeDropdown();
     } else {
       this.openDropdown();
     }
@@ -311,9 +311,10 @@ class Frame extends React.Component {
         aria-disabled={!!disabled}
         aria-expanded={!!this.state.isOpen}
         className={selectClasses}
-        onBlur={variant === Variants.DEFAULT ? this.handleBlur : undefined}
+        onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
         onKeyDown={this.handleKeyDown}
-        onMouseDown={(event) => { if (variant !== Variants.DEFAULT) { event.preventDefault(); } }}
+        onMouseDown={this.handleMouseDown}
         tabIndex={(variant !== Variants.DEFAULT || disabled) ? '-1' : '0'}
         ref={(ref) => { this.select = ref; }}
       >
@@ -324,7 +325,7 @@ class Frame extends React.Component {
           <span className={cx('arrow-icon')} />
         </div>
         {this.state.isOpen &&
-          <Dropdown {...dropdownAttrs} onRequestClose={this.closeDropdown} target={this.select}>
+          <Dropdown {...dropdownAttrs} target={this.select}>
             {dropdown &&
                dropdown({
                  variant,

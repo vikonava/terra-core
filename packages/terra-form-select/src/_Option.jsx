@@ -55,7 +55,7 @@ const Option = ({
   return (
     <li {...customProps} role="option" className={optionClassNames} disabled={disabled}>
       {(isCheckable || isTag) && <span className={cx('indicator')} />}
-      <span>{display}</span>
+      <span className={cx('display')}>{display}</span>
     </li>
   );
 };

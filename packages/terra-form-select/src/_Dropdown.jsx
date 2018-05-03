@@ -12,10 +12,6 @@ const propTypes = {
    */
   children: PropTypes.node,
   /**
-   * Callback function triggered when the dropdown should close.
-   */
-  onRequestClose: PropTypes.func.isRequired,
-  /**
    * The inline style of the dropdown.
    */
   style: PropTypes.object,
@@ -36,7 +32,6 @@ class Dropdown extends React.Component {
 
     this.state = {};
     this.positionDropdown = this.positionDropdown.bind(this);
-    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   componentDidMount() {
@@ -53,18 +48,6 @@ class Dropdown extends React.Component {
 
   componentWillUnmount() {
     this.props.target.style.borderRadius = '3px';
-  }
-
-  /**
-   * Requests the dropdown to close if a click event occurs outside of the dropdown or target.
-   * @param {event} event - The click event.
-   */
-  handleOutsideClick(event) {
-    if (this.props.target.contains(event.target)) {
-      return;
-    }
-
-    this.props.onRequestClose();
   }
 
   /**
@@ -91,7 +74,7 @@ class Dropdown extends React.Component {
   }
 
   render() {
-    const { children, onRequestClose, style, target, ...customProps } = this.props;
+    const { children, style, target, ...customProps } = this.props;
 
     const { width } = target.getBoundingClientRect();
     const dropdownStyle = Object.assign({}, style, { width, maxHeight: this.state.maxHeight });
@@ -121,7 +104,7 @@ class Dropdown extends React.Component {
           style={dropdownStyle}
           className={dropdownClasses}
           onResize={this.positionDropdown}
-          onOutsideClick={this.handleOutsideClick}
+          onMouseDown={event => event.preventDefault()}
           refCallback={(dropdown) => { this.dropdown = dropdown; }}
         >
           {children}
