@@ -23,6 +23,8 @@ class Default extends React.Component {
       options.push(<RawSelect.Option key={`${colors[index]}`} value={`${colors[index]}`} display={`${colors[index]}`} />);
     }
 
+    options.unshift(<RawSelect.Option key="supa long" value="supaLonklashdklahskdhakshdkahsdkjhaskhdajkshdkjahskdlhaskldhjklhaskldhakljshdkahsjkdhkjashdklhaskldhaklhskjhdkashdklhsg" display="klashdklahskdhakshdkahsdkjhaskhdajkshdkjahskdlhaskldhjklhaskldhakljshdkahsjkdhkjashdklhaskldhaklhskjhdkashdklhs" />);
+
     return (
       <RawSelect
         value={this.state.value}

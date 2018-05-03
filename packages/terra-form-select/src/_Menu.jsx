@@ -122,7 +122,8 @@ class Menu extends React.Component {
           isActive: option.props.value === this.state.active,
           isCheckable: Util.isMultiple(this.props.variant),
           isSelected: Util.isSelected(this.props.value, option.props.value),
-          onMouseDown: event => this.handleOptionClick(event, option),
+          onMouseDown: () => { this.downOption = option; },
+          onMouseUp: event => this.handleOptionClick(event, option),
           onMouseEnter: event => this.handleMouseEnter(event, option),
           ...(option.props.value === this.state.active) && { 'data-select-active': true },
         });
@@ -160,6 +161,9 @@ class Menu extends React.Component {
    * @param {ReactNode} option - The option that was clicked.
    */
   handleOptionClick(event, option) {
+    if (option !== this.downOption) {
+      return;
+    }
     const { onDeselect, onSelect, value, variant } = this.props;
 
     if (Util.isMultiple(variant) && Util.includes(value, option.props.value)) {

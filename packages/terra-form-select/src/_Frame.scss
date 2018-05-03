@@ -19,6 +19,7 @@
     cursor: pointer;
 
     > .display {
+      display: block;
       line-height: 1.75;
       overflow: hidden;
       text-overflow: ellipsis;

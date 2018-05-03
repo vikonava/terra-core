@@ -104,7 +104,7 @@ class Dropdown extends React.Component {
           style={dropdownStyle}
           className={dropdownClasses}
           onResize={this.positionDropdown}
-          onMouseDown={event => event.preventDefault()}
+          onMouseDown={(event) => { event.preventDefault(); }}
           refCallback={(dropdown) => { this.dropdown = dropdown; }}
         >
           {children}

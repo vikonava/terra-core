@@ -145,10 +145,8 @@ class Frame extends React.Component {
 
     const inputAttrs = {
       className: cx('input'),
-      // onBlur: this.handleInputBlur,
       onChange: this.handleSearch,
       onMouseDown: (event) => { event.stopPropagation(); this.openDropdown(); },
-      // onFocus: this.handleInputFocus,
       placeholder,
       ref: (input) => { this.input = input; },
     };
