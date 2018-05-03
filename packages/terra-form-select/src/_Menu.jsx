@@ -28,10 +28,6 @@ const propTypes = {
    */
   onSelect: PropTypes.func.isRequired,
   /**
-   * Callback function triggered when the dropdown should close.
-   */
-  onRequestClose: PropTypes.func.isRequired,
-  /**
    * Callback function for option filtering. function(searchValue, option)
    */
   optionFilter: PropTypes.func,
@@ -144,7 +140,7 @@ class Menu extends React.Component {
   handleKeyDown(event) {
     const { keyCode } = event;
     const { active, children } = this.state;
-    const { onRequestClose, onSelect, value, variant } = this.props;
+    const { onSelect, value, variant } = this.props;
 
     if (keyCode === KeyCodes.ENTER && this.state.active && (!Util.isMultiple(variant) || !Util.includes(value, active))) {
       const option = Util.findByValue(children, active);
@@ -155,8 +151,6 @@ class Menu extends React.Component {
     } else if (keyCode === KeyCodes.DOWN_ARROW) {
       event.preventDefault();
       this.setState({ active: Util.findNext(children, active) });
-    } else if (keyCode === KeyCodes.ESCAPE) {
-      onRequestClose(event);
     }
   }
 

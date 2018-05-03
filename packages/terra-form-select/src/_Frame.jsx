@@ -160,7 +160,7 @@ class Frame extends React.Component {
 
       return <ul className={cx('tags')} id="test">{tags}<input {...inputAttrs} value={searchValue} /></ul>;
     } else if (variant === Variants.COMBOBOX) {
-      return <input {...inputAttrs} value={searchValue || value.display} />;
+      return <input {...inputAttrs} value={this.state.searchChanged ? searchValue : value.display} />;
     }
 
     return value ? value.display : <div className={cx('placeholder')}>{placeholder}</div>;
@@ -199,7 +199,11 @@ class Frame extends React.Component {
     console.log('Blur');
 
     if (this.state.isFocused) {
-      this.setState({ isFocused: false, isOpen: false, searchValue: '' });
+      this.setState({ isFocused: false, isOpen: false, searchValue: '', searchChanged: false });
+
+      if (this.state.searchValue && (this.props.variant === Variants.COMBOBOX || this.props.variant === Variants.TAG) && this.props.onSelect) {
+        this.props.onSelect(this.state.searchValue);
+      }
     }
   }
 
@@ -227,6 +231,8 @@ class Frame extends React.Component {
       this.openDropdown();
     } else if (keyCode === BACKSPACE && !this.state.searchValue && this.props.value.length > 0) {
       this.props.onDeselect(this.props.value[0].value);
+    } else if (keyCode === KeyCodes.ESCAPE) {
+      this.closeDropdown();
     }
   }
 
@@ -249,7 +255,7 @@ class Frame extends React.Component {
    */
   handleSelect(value, option) {
     const isOpen = this.props.variant === Variants.MULTIPLE || this.props.variant === Variants.TAG;
-    this.setState({ searchValue: '', isOpen });
+    this.setState({ searchValue: '', isOpen, searchChanged: false });
 
     if (this.props.onSelect) {
       this.props.onSelect(value, option);
@@ -259,7 +265,7 @@ class Frame extends React.Component {
   /**
    * Toggles the dropdown open or closed.
    */
-  toggleDropdown(event) {
+  toggleDropdown() {
     // event.preventDefault();
 
     if (this.state.isOpen) {
