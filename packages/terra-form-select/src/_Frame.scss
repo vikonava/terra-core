@@ -74,7 +74,6 @@
     margin: 0;
     outline: none;
     padding: 0.21428571428571427rem 0 0;
-    width: auto;
 
     &:not(:first-child) {
       flex-grow: 0;
@@ -89,7 +88,7 @@
       height: auto;
       opacity: 1;
       outline: none;
-      width: auto;
+      width: inherit;
     }
   }
 
@@ -129,7 +128,7 @@
         opacity: 1;
         outline: none;
         padding: 0.21428571428571427rem 0 0;
-        width: auto;
+        width: inherit;
       }
     }
 

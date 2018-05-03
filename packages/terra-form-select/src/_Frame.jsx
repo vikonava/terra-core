@@ -193,12 +193,10 @@ class Frame extends React.Component {
   handleBlur() {
     console.log('Blur');
 
-    if (this.state.isFocused) {
-      this.setState({ isFocused: false, isOpen: false, searchValue: '', searchChanged: false });
+    this.setState({ isFocused: false, isOpen: false, searchValue: '', searchChanged: false });
 
-      if ((this.state.searchChanged || this.state.searchValue) && (this.props.variant === Variants.COMBOBOX || this.props.variant === Variants.TAG) && this.props.onSelect) {
-        this.props.onSelect(this.state.searchValue);
-      }
+    if ((this.state.searchChanged || this.state.searchValue) && (this.props.variant === Variants.COMBOBOX || this.props.variant === Variants.TAG) && this.props.onSelect) {
+      this.props.onSelect(this.state.searchValue);
     }
   }
 
@@ -224,7 +222,7 @@ class Frame extends React.Component {
       event.preventDefault();
       this.openDropdown();
     } else if (keyCode === BACKSPACE && !this.state.searchValue && this.props.value.length > 0) {
-      this.props.onDeselect(this.props.value[0].value);
+      this.props.onDeselect(this.props.value[this.props.value.length - 1].value);
     } else if (keyCode === KeyCodes.ESCAPE) {
       this.closeDropdown();
     }
